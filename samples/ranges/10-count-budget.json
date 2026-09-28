@@ -1,0 +1,6 @@
+{
+  "min": -0.05,
+  "max": 0.95,
+  "axis_length": 480,
+  "max_label_width": 44
+}
