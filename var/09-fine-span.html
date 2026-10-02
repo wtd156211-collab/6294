@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>轴刻度核对 step=0.0000000000000000005 count=9</title>
+<style>
+body { font-family: monospace; margin: 24px; color: #222; }
+#axis-summary { font-size: 16px; font-weight: bold; }
+#overlap-note { margin: 6px 0 16px; }
+#axis-chart { display: block; overflow: visible; }
+.axis-line { stroke: #333; stroke-width: 1.5; }
+.tick-line { stroke: #333; stroke-width: 1; }
+.label-box { fill: #f6f6f6; stroke: #bbb; stroke-width: 0.5; }
+.tick-label { font-family: monospace; font-size: 14px; fill: #222; }
+.tick.overlap .label-box { fill: #ffdada; stroke: #c00000; }
+.tick.overlap .tick-label { fill: #c00000; }
+#ticks { background: #f6f6f6; padding: 12px; }
+</style>
+</head>
+<body>
+<header id="axis-summary">step=0.0000000000000000005 count=9 axis=400格 模式=定点</header>
+<p id="overlap-note">相邻标签重叠 0 处</p>
+<svg id="axis-chart" width="4080" height="110" viewBox="-40 0 4080 110" role="img" aria-label="坐标轴刻度">
+<line class="axis-line" x1="0" y1="30" x2="4000" y2="30"/>
+<line class="tick-line" x1="0" y1="25" x2="0" y2="35"/>
+<line class="tick-line" x1="500" y1="25" x2="500" y2="35"/>
+<line class="tick-line" x1="1000" y1="25" x2="1000" y2="35"/>
+<line class="tick-line" x1="1500" y1="25" x2="1500" y2="35"/>
+<line class="tick-line" x1="2000" y1="25" x2="2000" y2="35"/>
+<line class="tick-line" x1="2500" y1="25" x2="2500" y2="35"/>
+<line class="tick-line" x1="3000" y1="25" x2="3000" y2="35"/>
+<line class="tick-line" x1="3500" y1="25" x2="3500" y2="35"/>
+<line class="tick-line" x1="4000" y1="25" x2="4000" y2="35"/>
+<g class="tick" data-x0="-100.0000" data-x1="100.0000"><rect class="label-box" x="-100.0000" y="42" width="200" height="22"/><text class="tick-label" x="0.0000" y="57" text-anchor="middle" textLength="200" lengthAdjust="spacingAndGlyphs">1.000000000000000001</text></g>
+<g class="tick" data-x0="395.0000" data-x1="605.0000"><rect class="label-box" x="395.0000" y="42" width="210" height="22"/><text class="tick-label" x="500.0000" y="57" text-anchor="middle" textLength="210" lengthAdjust="spacingAndGlyphs">1.0000000000000000015</text></g>
+<g class="tick" data-x0="900.0000" data-x1="1100.0000"><rect class="label-box" x="900.0000" y="42" width="200" height="22"/><text class="tick-label" x="1000.0000" y="57" text-anchor="middle" textLength="200" lengthAdjust="spacingAndGlyphs">1.000000000000000002</text></g>
+<g class="tick" data-x0="1395.0000" data-x1="1605.0000"><rect class="label-box" x="1395.0000" y="42" width="210" height="22"/><text class="tick-label" x="1500.0000" y="57" text-anchor="middle" textLength="210" lengthAdjust="spacingAndGlyphs">1.0000000000000000025</text></g>
+<g class="tick" data-x0="1900.0000" data-x1="2100.0000"><rect class="label-box" x="1900.0000" y="42" width="200" height="22"/><text class="tick-label" x="2000.0000" y="57" text-anchor="middle" textLength="200" lengthAdjust="spacingAndGlyphs">1.000000000000000003</text></g>
+<g class="tick" data-x0="2395.0000" data-x1="2605.0000"><rect class="label-box" x="2395.0000" y="42" width="210" height="22"/><text class="tick-label" x="2500.0000" y="57" text-anchor="middle" textLength="210" lengthAdjust="spacingAndGlyphs">1.0000000000000000035</text></g>
+<g class="tick" data-x0="2900.0000" data-x1="3100.0000"><rect class="label-box" x="2900.0000" y="42" width="200" height="22"/><text class="tick-label" x="3000.0000" y="57" text-anchor="middle" textLength="200" lengthAdjust="spacingAndGlyphs">1.000000000000000004</text></g>
+<g class="tick" data-x0="3395.0000" data-x1="3605.0000"><rect class="label-box" x="3395.0000" y="42" width="210" height="22"/><text class="tick-label" x="3500.0000" y="57" text-anchor="middle" textLength="210" lengthAdjust="spacingAndGlyphs">1.0000000000000000045</text></g>
+<g class="tick" data-x0="3900.0000" data-x1="4100.0000"><rect class="label-box" x="3900.0000" y="42" width="200" height="22"/><text class="tick-label" x="4000.0000" y="57" text-anchor="middle" textLength="200" lengthAdjust="spacingAndGlyphs">1.000000000000000005</text></g>
+</svg>
+<pre id="ticks">1.000000000000000001 1.000000000000000001
+1.0000000000000000015 1.0000000000000000015
+1.000000000000000002 1.000000000000000002
+1.0000000000000000025 1.0000000000000000025
+1.000000000000000003 1.000000000000000003
+1.0000000000000000035 1.0000000000000000035
+1.000000000000000004 1.000000000000000004
+1.0000000000000000045 1.0000000000000000045
+1.000000000000000005 1.000000000000000005
+</pre>
+<script type="module">
+const groups = [...document.querySelectorAll("#axis-chart g.tick")];
+let overlaps = 0;
+for (let i = 0; i + 1 < groups.length; i += 1) {
+  const left = groups[i], right = groups[i + 1];
+  if (Number(left.dataset.x1) > Number(right.dataset.x0)) {
+    left.classList.add("overlap");
+    right.classList.add("overlap");
+    overlaps += 1;
+  }
+}
+document.getElementById("overlap-note").textContent =
+  `相邻标签重叠 ${overlaps} 处${overlaps ? "（已标红）" : ""}`;
+</script>
+</body>
+</html>

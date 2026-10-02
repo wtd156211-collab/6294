@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>轴刻度核对 step=0.2 count=7</title>
+<style>
+body { font-family: monospace; margin: 24px; color: #222; }
+#axis-summary { font-size: 16px; font-weight: bold; }
+#overlap-note { margin: 6px 0 16px; }
+#axis-chart { display: block; overflow: visible; }
+.axis-line { stroke: #333; stroke-width: 1.5; }
+.tick-line { stroke: #333; stroke-width: 1; }
+.label-box { fill: #f6f6f6; stroke: #bbb; stroke-width: 0.5; }
+.tick-label { font-family: monospace; font-size: 14px; fill: #222; }
+.tick.overlap .label-box { fill: #ffdada; stroke: #c00000; }
+.tick.overlap .tick-label { fill: #c00000; }
+#ticks { background: #f6f6f6; padding: 12px; }
+</style>
+</head>
+<body>
+<header id="axis-summary">step=0.2 count=7 axis=480格 模式=定点</header>
+<p id="overlap-note">相邻标签重叠 0 处</p>
+<svg id="axis-chart" width="4880" height="110" viewBox="-40 0 4880 110" role="img" aria-label="坐标轴刻度">
+<line class="axis-line" x1="0" y1="30" x2="4800" y2="30"/>
+<line class="tick-line" x1="0" y1="25" x2="0" y2="35"/>
+<line class="tick-line" x1="800" y1="25" x2="800" y2="35"/>
+<line class="tick-line" x1="1600" y1="25" x2="1600" y2="35"/>
+<line class="tick-line" x1="2400" y1="25" x2="2400" y2="35"/>
+<line class="tick-line" x1="3200" y1="25" x2="3200" y2="35"/>
+<line class="tick-line" x1="4000" y1="25" x2="4000" y2="35"/>
+<line class="tick-line" x1="4800" y1="25" x2="4800" y2="35"/>
+<g class="tick" data-x0="-20.0000" data-x1="20.0000"><rect class="label-box" x="-20.0000" y="42" width="40" height="22"/><text class="tick-label" x="0.0000" y="57" text-anchor="middle" textLength="40" lengthAdjust="spacingAndGlyphs">-0.2</text></g>
+<g class="tick" data-x0="795.0000" data-x1="805.0000"><rect class="label-box" x="795.0000" y="42" width="10" height="22"/><text class="tick-label" x="800.0000" y="57" text-anchor="middle" textLength="10" lengthAdjust="spacingAndGlyphs">0</text></g>
+<g class="tick" data-x0="1585.0000" data-x1="1615.0000"><rect class="label-box" x="1585.0000" y="42" width="30" height="22"/><text class="tick-label" x="1600.0000" y="57" text-anchor="middle" textLength="30" lengthAdjust="spacingAndGlyphs">0.2</text></g>
+<g class="tick" data-x0="2385.0000" data-x1="2415.0000"><rect class="label-box" x="2385.0000" y="42" width="30" height="22"/><text class="tick-label" x="2400.0000" y="57" text-anchor="middle" textLength="30" lengthAdjust="spacingAndGlyphs">0.4</text></g>
+<g class="tick" data-x0="3185.0000" data-x1="3215.0000"><rect class="label-box" x="3185.0000" y="42" width="30" height="22"/><text class="tick-label" x="3200.0000" y="57" text-anchor="middle" textLength="30" lengthAdjust="spacingAndGlyphs">0.6</text></g>
+<g class="tick" data-x0="3985.0000" data-x1="4015.0000"><rect class="label-box" x="3985.0000" y="42" width="30" height="22"/><text class="tick-label" x="4000.0000" y="57" text-anchor="middle" textLength="30" lengthAdjust="spacingAndGlyphs">0.8</text></g>
+<g class="tick" data-x0="4795.0000" data-x1="4805.0000"><rect class="label-box" x="4795.0000" y="42" width="10" height="22"/><text class="tick-label" x="4800.0000" y="57" text-anchor="middle" textLength="10" lengthAdjust="spacingAndGlyphs">1</text></g>
+</svg>
+<pre id="ticks">-0.2 -0.2
+0 0
+0.2 0.2
+0.4 0.4
+0.6 0.6
+0.8 0.8
+1 1
+</pre>
+<script type="module">
+const groups = [...document.querySelectorAll("#axis-chart g.tick")];
+let overlaps = 0;
+for (let i = 0; i + 1 < groups.length; i += 1) {
+  const left = groups[i], right = groups[i + 1];
+  if (Number(left.dataset.x1) > Number(right.dataset.x0)) {
+    left.classList.add("overlap");
+    right.classList.add("overlap");
+    overlaps += 1;
+  }
+}
+document.getElementById("overlap-note").textContent =
+  `相邻标签重叠 ${overlaps} 处${overlaps ? "（已标红）" : ""}`;
+</script>
+</body>
+</html>
