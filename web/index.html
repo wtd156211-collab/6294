@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>刻度核对</title>
+<style>
+body { font-family: ui-monospace, Menlo, Consolas, monospace; margin: 24px; color: #222; }
+#axis-summary { font-size: 15px; margin-bottom: 14px; }
+#axis { position: relative; height: 64px; margin: 8px 0 16px 8ch; }
+#axis .axis-line { position: absolute; left: 0; top: 8px; height: 2px; background: #444; }
+#axis .tick-mark { position: absolute; top: 8px; width: 0; height: 8px; border-left: 1px solid #444; }
+#axis .tick-label { position: absolute; top: 24px; white-space: pre; text-align: center; font-size: 13px; }
+#axis .tick-label.overlap { color: #d00; font-weight: 700; }
+h2 { font-size: 14px; margin: 18px 0 6px; }
+#ticks { background: #f6f6f6; border: 1px solid #ddd; padding: 10px; display: inline-block; margin: 0; }
+</style>
+</head>
+<body>
+<div id="axis-summary">step=20 count=7　量程 [-42, 58]　轴长 300 格</div>
+<div id="axis"></div>
+<h2>刻度与标签</h2>
+<pre id="ticks">-60 -60
+-40 -40
+-20 -20
+0 0
+20 20
+40 40
+60 60</pre>
+<script type="module">
+const DATA = {
+  "step": "20",
+  "count": 7,
+  "axisLength": 300,
+  "scientific": false,
+  "range": [
+    "-42",
+    "58"
+  ],
+  "ticks": [
+    {
+      "value": "-60",
+      "label": "-60",
+      "width": 3,
+      "position": 0.0
+    },
+    {
+      "value": "-40",
+      "label": "-40",
+      "width": 3,
+      "position": 50.0
+    },
+    {
+      "value": "-20",
+      "label": "-20",
+      "width": 3,
+      "position": 100.0
+    },
+    {
+      "value": "0",
+      "label": "0",
+      "width": 1,
+      "position": 150.0
+    },
+    {
+      "value": "20",
+      "label": "20",
+      "width": 2,
+      "position": 200.0
+    },
+    {
+      "value": "40",
+      "label": "40",
+      "width": 2,
+      "position": 250.0
+    },
+    {
+      "value": "60",
+      "label": "60",
+      "width": 2,
+      "position": 300.0
+    }
+  ]
+};
+const axis = document.getElementById("axis");
+const n = DATA.count;
+const L = DATA.axisLength;
+axis.style.width = L + "ch";
+const line = document.createElement("div");
+line.className = "axis-line";
+line.style.width = L + "ch";
+axis.appendChild(line);
+const labelEls = [];
+for (const t of DATA.ticks) {
+  const mark = document.createElement("div");
+  mark.className = "tick-mark";
+  mark.style.left = t.position + "ch";
+  axis.appendChild(mark);
+  const lab = document.createElement("div");
+  lab.className = "tick-label";
+  lab.textContent = t.label;
+  lab.style.left = (t.position - t.width / 2) + "ch";
+  lab.style.width = t.width + "ch";
+  axis.appendChild(lab);
+  labelEls.push(lab);
+}
+for (let i = 0; i + 1 < n; i++) {
+  const a = DATA.ticks[i];
+  const b = DATA.ticks[i + 1];
+  if (2 * L < (n - 1) * (a.width + b.width)) {
+    labelEls[i].classList.add("overlap");
+    labelEls[i + 1].classList.add("overlap");
+  }
+}
+</script>
+</body>
+</html>
